@@ -1,15 +1,17 @@
 package com.bol.instantapp
 
+import android.app.Activity
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.widget.Toast
 import com.bol.instantapp.dto.SearchResponse
 import com.bol.instantapp.ui.viewMvc.pdp.ProductDetailView
 import com.bol.instantapp.viewmodel.ProductViewModel
 import com.bol.instantapp.viewmodel.Resource
 
-class ProductDetailActivity : LifecycleActivity() {
+class ProductDetailActivity : FragmentActivity() {
     var productDetailViewModel: ProductViewModel? = null
     var view: ProductDetailView? = null
 

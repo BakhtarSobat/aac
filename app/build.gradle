@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 //apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.bol.instantapp"
         minSdkVersion 17
@@ -36,45 +36,42 @@ kapt {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
     /** component arch */
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha1"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha1"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
+    implementation "android.arch.lifecycle:runtime:1.0.3"
+    implementation "android.arch.lifecycle:extensions:1.0.0"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 
     /** end of arch */
 
     /** dagger2 **/
-    compile "com.google.dagger:dagger:2.8"
+    implementation "com.google.dagger:dagger:2.8"
     kapt 'com.google.dagger:dagger-compiler:2.8'
     kapt "com.android.databinding:compiler:$plugin_version"
     annotationProcessor "com.google.dagger:dagger-compiler:2.8"
     provided 'org.glassfish:javax.annotation:10.0-b28'
     provided 'javax.annotation:jsr250-api:1.0'
 
-    compile 'javax.inject:javax.inject:1'
+    implementation 'javax.inject:javax.inject:1'
     /** end of dagger*/
 
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
     //OkHttp
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    compile 'com.squareup.okio:okio:1.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.squareup.okio:okio:1.7.0'
 
     //Gson
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.1'
 
     //Glide
-    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
+    implementation 'com.github.bumptech.glide:glide:4.0.0-RC0'
 
 }
