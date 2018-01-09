@@ -18,7 +18,7 @@ import retrofit2.Retrofit
 @Module
 class NetModule (val baseUrl: String){
     val QUERY_PARAMETER = "apikey"
-    val KEY = "--"// get your bol.com api key at https://partnerblog.bol.com/documentatie/open-api/
+    val KEY = "3E7F9D369D534E4593F604C00089B20B"// get your bol.com api key at https://partnerblog.bol.com/documentatie/open-api/
 
     @Provides
     @Singleton
