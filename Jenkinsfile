@@ -1,24 +1,39 @@
 node {
     //Utilizing a try block so as to make the code cleaner and send slack notification in case of any error
-    try {
-        //Call function to send a message to Slack
-        notifyBuild('STARTED')
-        // Global variable declaration
-        def project = 'android_test'
-        def appName = 'Sample App AAC'
 
-        // Stage, is to tell the Jenkins that this is the new process/step that needs to be executed
-        stage('Checkout') {
-            // Pull the code from the repo
-            checkout scm
+    //Call function to send a message to Slack
+    notifyBuild('STARTED')
+    // Global variable declaration
+    def project = 'android_test'
+    def appName = 'Sample App AAC'
+
+    // Stage, is to tell the Jenkins that this is the new process/step that needs to be executed
+    stage('Checkout') {
+        try {
+          // Pull the code from the repo
+          checkout scm
+        } catch (e) {
+            currentBuild.result = "FAILED"
+            throw e
+        } finally {
+            notifyBuild(currentBuild.result)
         }
-
-    } catch (e) {
-        currentBuild.result = "FAILED"
-        throw e
-      } finally {
-        notifyBuild(currentBuild.result)
     }
+
+    stage('Build') {
+        try {
+            sh './gradlew --refresh-dependencies clean assemble'
+            lock('emulator') {
+                sh './gradlew connectedCheck'
+            }
+            currentBuild.result = 'SUCCESS'
+        } catch(error) {
+            currentBuild.result = 'FAILURE'
+            notifyBuild ("This build is broken ${env.BUILD_URL}")
+        } finally {
+            //junit '**/test-results/**/*.xml'
+        }
+   }
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
