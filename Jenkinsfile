@@ -1,4 +1,4 @@
-node("Android") {
+node {
     //Utilizing a try block so as to make the code cleaner and send slack notification in case of any error
 
     //Call function to send a message to Slack
