@@ -1,4 +1,5 @@
 node {
+    step([$class: 'StashNotifier'])
     //Utilizing a try block so as to make the code cleaner and send slack notification in case of any error
 
     //Call function to send a message to Slack
@@ -35,8 +36,20 @@ node {
         } 
    }
     
+    stage('Archive') {
+        try {
+            archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
+            currentBuild.result = 'SUCCESSFUL'
+            echo "Archive successfull"
+        } catch(e) {
+            currentBuild.result = 'FAILED'
+            notifyBuild (currentBuild.result)
+            throw e
+        }
+   }
+
     notifyBuild (currentBuild.result)
-    
+    step([$class: 'StashNotifier'])
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
