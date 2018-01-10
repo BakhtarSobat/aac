@@ -71,5 +71,5 @@ def notifyBuild(String buildStatus = 'STARTED') {
     colorCode = '#FF0000'
   }
   echo "$summary"
-  //slackSend (color: colorCode, message: summary)
+  slackSend (color: colorCode, message: summary)
 }
