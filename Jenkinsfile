@@ -14,7 +14,7 @@ node {
             checkout scm
             echo "Checkout ok"
         } catch (e) {
-            //currentBuild.result = "FAILED"
+            currentBuild.result = "FAILURE"
             notifyBuild(currentBuild.result)
             throw e
         } 
@@ -26,10 +26,10 @@ node {
             //lock('emulator') {
                 sh './gradlew connectedCheck'
             //}
-            //currentBuild.result = 'SUCCESSFUL'
+            currentBuild.result = 'SUCCESS'
             echo "Build ok"
         } catch(e) {
-            currentBuild.result = 'FAILED'
+            currentBuild.result = 'FAILURE'
             notifyBuild (currentBuild.result)
             throw e
         } 
@@ -38,20 +38,20 @@ node {
     stage('Archive') {
         try {
             //archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
-            //currentBuild.result = 'SUCCESSFUL'
+            currentBuild.result = 'SUCCESS'
             echo "Archive ok"
         } catch(e) {
-            currentBuild.result = 'FAILED'
+            currentBuild.result = 'FAILURE'
             notifyBuild (currentBuild.result)
             throw e
         }
    }
 
-    //notifyBuild (currentBuild.result)
+   notifyBuild (currentBuild.result)
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
-  buildStatus =  buildStatus ?: 'SUCCESSFUL'
+  buildStatus =  buildStatus ?: 'SUCCESS'
 
   def color = 'RED'
   def colorCode = '#FF0000'
@@ -63,7 +63,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
   if (buildStatus == 'STARTED') {
     color = 'YELLOW'
     colorCode = '#FFCC00'
-  } else if (buildStatus == 'SUCCESSFUL') {
+  } else if (buildStatus == 'SUCCESS') {
     color = 'GREEN'
     colorCode = '#228B22'
   } else {
