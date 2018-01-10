@@ -10,30 +10,44 @@ node {
     // Stage, is to tell the Jenkins that this is the new process/step that needs to be executed
     stage('Checkout') {
         try {
-          // Pull the code from the repo
-          checkout scm
+            // Pull the code from the repo
+            checkout scm
+            echo "checkout successfull"
         } catch (e) {
             currentBuild.result = "FAILED"
-            throw e
-        } finally {
             notifyBuild(currentBuild.result)
-        }
+            throw e
+        } 
     }
 
     stage('Build') {
         try {
-            sh './gradlew --refresh-dependencies clean assemble'
+            sh './gradlew clean assemble'
             //lock('emulator') {
             //    sh './gradlew connectedCheck'
             //}
             currentBuild.result = 'SUCCESSFUL'
-        } catch(error) {
+            echo "Build successfull"
+        } catch(e) {
             currentBuild.result = 'FAILED'
             notifyBuild (currentBuild.result)
-        } finally {
-            //junit '**/test-results/**/*.xml'
-        }
+            throw e
+        } 
    }
+    
+    stage('Archive') {
+        try {
+            archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
+            currentBuild.result = 'SUCCESSFUL'
+            echo "Archive successfull"
+        } catch(e) {
+            currentBuild.result = 'FAILED'
+            notifyBuild (currentBuild.result)
+            throw e
+        } 
+   }
+    
+    notifyBuild (currentBuild.result)
     
 }
 
