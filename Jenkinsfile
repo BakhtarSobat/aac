@@ -35,18 +35,6 @@ node {
         } 
    }
     
-    stage('Archive') {
-        try {
-            //archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
-            currentBuild.result = 'SUCCESSFUL'
-            echo "TODO this is not implemented yet."
-        } catch(e) {
-            currentBuild.result = 'FAILED'
-            notifyBuild (currentBuild.result)
-            throw e
-        } 
-   }
-    
     notifyBuild (currentBuild.result)
     
 }
