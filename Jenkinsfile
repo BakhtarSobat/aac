@@ -47,7 +47,7 @@ node {
         }
    }
 
-    notifyBuild (currentBuild.result)
+    //notifyBuild (currentBuild.result)
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
