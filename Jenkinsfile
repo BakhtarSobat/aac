@@ -1,5 +1,4 @@
 node {
-    step([$class: 'StashNotifier'])
     //Utilizing a try block so as to make the code cleaner and send slack notification in case of any error
 
     //Call function to send a message to Slack
@@ -23,10 +22,10 @@ node {
 
     stage('Build') {
         try {
-            sh './gradlew clean build'
-            //lock('emulator') {
-            //    sh './gradlew connectedCheck'
-            //}
+            sh './gradlew --refresh-dependencies clean assemble'
+            lock('emulator') {
+                sh './gradlew connectedCheck'
+            }
             currentBuild.result = 'SUCCESSFUL'
             echo "Build successfull"
         } catch(e) {
@@ -49,7 +48,6 @@ node {
    }
 
     notifyBuild (currentBuild.result)
-    step([$class: 'StashNotifier'])
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
