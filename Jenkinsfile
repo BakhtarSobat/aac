@@ -37,7 +37,7 @@ node {
     
     stage('Archive') {
         try {
-            archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
+            //archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
             currentBuild.result = 'SUCCESSFUL'
             echo "Archive successfull"
         } catch(e) {
