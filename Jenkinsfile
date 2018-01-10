@@ -22,7 +22,7 @@ node {
 
     stage('Build') {
         try {
-            sh './gradlew clean assemble'
+            sh './gradlew clean build'
             //lock('emulator') {
             //    sh './gradlew connectedCheck'
             //}
