@@ -37,9 +37,9 @@ node {
     
     stage('Archive') {
         try {
-            archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
+            //archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
             currentBuild.result = 'SUCCESSFUL'
-            echo "Archive successfull"
+            echo "TODO this is not implemented yet."
         } catch(e) {
             currentBuild.result = 'FAILED'
             notifyBuild (currentBuild.result)
@@ -72,6 +72,5 @@ def notifyBuild(String buildStatus = 'STARTED') {
     colorCode = '#FF0000'
   }
   echo "$summary"
-  echo "$details"
   //slackSend (color: colorCode, message: summary)
 }
