@@ -12,7 +12,7 @@ node {
         try {
             // Pull the code from the repo
             checkout scm
-            echo "checkout successfull"
+            echo "Checkout ok"
         } catch (e) {
             currentBuild.result = "FAILED"
             notifyBuild(currentBuild.result)
@@ -27,7 +27,7 @@ node {
                 sh './gradlew connectedCheck'
             //}
             currentBuild.result = 'SUCCESSFUL'
-            echo "Build successfull"
+            echo "Build ok"
         } catch(e) {
             currentBuild.result = 'FAILED'
             notifyBuild (currentBuild.result)
@@ -39,7 +39,7 @@ node {
         try {
             //archiveArtifacts artifacts: 'app/build/outputs/apk/*.apk', fingerprint: true
             currentBuild.result = 'SUCCESSFUL'
-            echo "Archive successfull"
+            echo "Archive ok"
         } catch(e) {
             currentBuild.result = 'FAILED'
             notifyBuild (currentBuild.result)
