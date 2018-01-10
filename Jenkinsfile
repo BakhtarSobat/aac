@@ -20,20 +20,7 @@ node {
         }
     }
 
-    stage('Build') {
-        try {
-            sh './gradlew --refresh-dependencies clean assemble'
-            //lock('emulator') {
-            //    sh './gradlew connectedCheck'
-            //}
-            currentBuild.result = 'SUCCESS'
-        } catch(error) {
-            currentBuild.result = 'FAILURE'
-            notifyBuild ("This build is broken ${env.BUILD_URL}")
-        } finally {
-            //junit '**/test-results/**/*.xml'
-        }
-   }
+    
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
