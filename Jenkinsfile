@@ -23,9 +23,9 @@ node {
     stage('Build') {
         try {
             sh './gradlew --refresh-dependencies clean assemble'
-            lock('emulator') {
+            //lock('emulator') {
                 sh './gradlew connectedCheck'
-            }
+            //}
             currentBuild.result = 'SUCCESSFUL'
             echo "Build successfull"
         } catch(e) {
