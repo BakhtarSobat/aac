@@ -20,6 +20,20 @@ node {
         }
     }
 
+    stage('Build') {
+        try {
+            sh './gradlew --refresh-dependencies clean assemble'
+            //lock('emulator') {
+            //    sh './gradlew connectedCheck'
+            //}
+            currentBuild.result = 'SUCCESSFUL'
+        } catch(error) {
+            currentBuild.result = 'FAILED'
+            notifyBuild (currentBuild.result)
+        } finally {
+            //junit '**/test-results/**/*.xml'
+        }
+   }
     
 }
 
