@@ -1,12 +1,10 @@
 package com.bol.instantapp.di.modules
 
-import com.bol.instantapp.Repository.CatalogRepository
 import com.bol.instantapp.api.CatalogApi
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 import retrofit2.Retrofit
-
+import javax.inject.Singleton
 
 
 /**
@@ -19,4 +17,6 @@ class ApiModule{
     fun providesCatalogApi(retrofit: Retrofit): CatalogApi {
         return retrofit.create<CatalogApi>(CatalogApi::class.java)
     }
+
+
 }

@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.FragmentActivity
 import com.bol.instantapp.Repository.CatalogRepository
+import com.bol.instantapp.manager.FeatureToggleManager
 import javax.inject.Inject
 
 /**
@@ -24,8 +25,11 @@ class ProductViewModel: ViewModel(){
 
     private lateinit  var repository: CatalogRepository;
 
-    @Inject fun init(repository: CatalogRepository) {
+    lateinit var featureToggleManager: FeatureToggleManager
+
+    @Inject fun init(repository: CatalogRepository, featureToggleManager: FeatureToggleManager) {
         this.repository = repository;
+        this.featureToggleManager = featureToggleManager
 
     }
 

@@ -5,26 +5,35 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.widget.Toast
 import com.bol.instantapp.dto.SearchResponse
+import com.bol.instantapp.ui.viewMvc.pdp.ModernProductDetailView
+import com.bol.instantapp.ui.viewMvc.pdp.ProductDetailInterfaceView
 import com.bol.instantapp.ui.viewMvc.pdp.ProductDetailView
 import com.bol.instantapp.viewmodel.ProductViewModel
 import com.bol.instantapp.viewmodel.Resource
 
 class ProductDetailActivity : FragmentActivity() {
-    var productDetailViewModel: ProductViewModel? = null
-    var view: ProductDetailView? = null
+    val productDetailViewModel by lazy { createViewModel() }
+    var view: ProductDetailInterfaceView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        view = ProductDetailView(layoutInflater, object: ProductDetailView.Listener{
-            override fun search(newValue: String) {
-                productDetailViewModel?.search(newValue);
-            }
+        view = if (productDetailViewModel.featureToggleManager.config.newLayout) {
+            ModernProductDetailView(layoutInflater, object : ModernProductDetailView.Listener {
+                override fun search(newValue: String) {
+                    productDetailViewModel?.search(newValue);
+                }
 
-        });
+            })
+
+        } else {
+            ProductDetailView(layoutInflater, object : ProductDetailView.Listener {
+                override fun search(newValue: String) {
+                    productDetailViewModel?.search(newValue);
+                }
+
+            })
+        }
         setContentView(view?.rootView);
-
-        productDetailViewModel = ProductViewModel.create(this);
-        App.appComponent.inject(productDetailViewModel!!);
 
         productDetailViewModel?.searchResult?.observe(this, Observer<Resource<SearchResponse>> { resource ->
             if (resource != null) {
@@ -47,5 +56,13 @@ class ProductDetailActivity : FragmentActivity() {
                 }
             }
         })
+    }
+
+    private fun createViewModel(): ProductViewModel {
+        val productDetailViewModel = ProductViewModel.create(this).apply {
+            App.appComponent.inject(this)
+        }
+
+        return productDetailViewModel
     }
 }

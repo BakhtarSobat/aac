@@ -1,6 +1,8 @@
 package com.bol.instantapp.di.modules
 
 import android.app.Application
+import com.bol.instantapp.manager.FeatureToggleConfig
+import com.bol.instantapp.manager.FeatureToggleManager
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,5 +17,11 @@ class AppModule(val application: android.app.Application){
     @Singleton
     fun provideApplication() : android.app.Application {
         return application;
+    }
+
+    @Provides
+    @Singleton
+    fun providesToggleManager(): FeatureToggleManager {
+        return FeatureToggleManager(FeatureToggleConfig())
     }
 }

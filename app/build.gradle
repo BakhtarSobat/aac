@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'kotlin-android-extensions'
+
+repositories {
+    mavenCentral()
+}
 android {
     compileSdkVersion compiledVersion
     buildToolsVersion buildToolsVersion
@@ -72,5 +76,9 @@ dependencies {
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.0.0-RC0'
+
+    implementation group: 'com.abnamro', name: 'toggleproc', version: '1.1'
+
+    annotationProcessor('com.abnamro:toggleproc:1.1')
 
 }
