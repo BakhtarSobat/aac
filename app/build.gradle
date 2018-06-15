@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 //apply plugin: 'kotlin-android-extensions'
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.2"
+    compileSdkVersion compiledVersion
+    buildToolsVersion buildToolsVersion
     defaultConfig {
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
         applicationId "com.bol.instantapp"
-        minSdkVersion 17
-        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -39,29 +39,28 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:recyclerview-v7:25.3.1'
+    implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     /** component arch */
-    implementation "android.arch.lifecycle:runtime:1.0.3"
-    implementation "android.arch.lifecycle:extensions:1.0.0"
-    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    implementation "android.arch.lifecycle:runtime:$archVersion"
+    implementation "android.arch.lifecycle:extensions:$archVersion"
+    kapt "android.arch.lifecycle:compiler:$archVersion"
 
     /** end of arch */
 
     /** dagger2 **/
     implementation "com.google.dagger:dagger:2.8"
     kapt 'com.google.dagger:dagger-compiler:2.8'
-    kapt "com.android.databinding:compiler:$plugin_version"
     annotationProcessor "com.google.dagger:dagger-compiler:2.8"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    provided 'javax.annotation:jsr250-api:1.0'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    compileOnly 'javax.annotation:jsr250-api:1.0'
 
     implementation 'javax.inject:javax.inject:1'
     /** end of dagger*/
 
     //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compileOnly 'com.squareup.retrofit2:retrofit:2.0.2'
 
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.2.0'

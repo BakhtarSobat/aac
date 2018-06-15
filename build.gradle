@@ -8,9 +8,10 @@ buildscript {
     repositories {
         maven { url 'https://maven.google.com' }
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.android.tools.build:gradle:$plugin_version"
         // NOTE: Do not place your application dependencies here; they belong
@@ -18,6 +19,24 @@ buildscript {
     }
 }
 
+ext {
+    //app
+    humanReadableVersion = "3.0.0"
+
+    daggerVersion = '2.11-rc2'
+    supportLibVersion = '27.1.0'
+    googleAnalyticsVersion = '11.0.4'
+    gmsVersion = '15.0.1'
+    analyticsVersion = '16.0.0'
+    grpcVersion = "1.12.0"
+    gsonVerson = '2.8.0'
+    archVersion = "1.1.1"
+
+    //sdk
+    minSdk = 21
+    targetSdk = 26
+    compiledVersion = 26
+}
 allprojects {
     repositories {
         jcenter()

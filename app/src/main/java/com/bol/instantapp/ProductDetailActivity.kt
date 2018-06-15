@@ -1,7 +1,5 @@
 package com.bol.instantapp
 
-import android.app.Activity
-import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
